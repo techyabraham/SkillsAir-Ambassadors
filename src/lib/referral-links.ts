@@ -30,6 +30,15 @@ function validCode(code: string): string {
   return code
 }
 
+function setReferralCode(url: URL, referralCode: string): void {
+  const oldKeys: string[] = []
+  url.searchParams.forEach((_value, key) => {
+    if (key.toLowerCase() === 'skr' || key.toLowerCase() === 'ref') oldKeys.push(key)
+  })
+  for (const key of oldKeys) url.searchParams.delete(key)
+  url.searchParams.set('skr', validCode(referralCode))
+}
+
 export function buildProgrammeReferralLink(
   mainSiteUrl: string,
   slug: string,
@@ -39,7 +48,7 @@ export function buildProgrammeReferralLink(
   if (!SAFE_SLUG.test(cleanSlug)) throw new Error('This programme does not have a valid page address.')
 
   const url = new URL('/programmes/' + encodeURIComponent(cleanSlug), allowedSiteOrigin(mainSiteUrl))
-  url.searchParams.set('ref', validCode(referralCode))
+  setReferralCode(url, referralCode)
   return url.toString()
 }
 
@@ -64,6 +73,6 @@ export function buildCustomReferralLink(
   ) {
     throw new Error('Enter a public page on the SkillsAir website.')
   }
-  url.searchParams.set('ref', validCode(referralCode))
+  setReferralCode(url, referralCode)
   return url.toString()
 }
