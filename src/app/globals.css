@@ -1,0 +1,77 @@
+@import 'tailwindcss';
+
+:root {
+  --navy-900: #0d1b4b;
+  --primary: #1e3a8a;
+  --primary-100: #dbeafe;
+  --accent: #f97316;
+  --accent-text: #c2410c;
+  --success-text: #15803d;
+  --success-bg: #dcfce7;
+  --pending-text: #b45309;
+  --pending-chip-text: #92400e;
+  --pending-bg: #fef3c7;
+  --danger-text: #b91c1c;
+  --danger-bg: #fee2e2;
+  --ink: #0f172a;
+  --ink-2: #334155;
+  --muted: #475569;
+  --line: #e2e8f0;
+  --surface: #f8fafc;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-navy-900: var(--navy-900);
+  --color-primary: var(--primary);
+  --color-primary-100: var(--primary-100);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-success-text: var(--success-text);
+  --color-success-bg: var(--success-bg);
+  --color-pending-text: var(--pending-text);
+  --color-pending-chip-text: var(--pending-chip-text);
+  --color-pending-bg: var(--pending-bg);
+  --color-danger-text: var(--danger-text);
+  --color-danger-bg: var(--danger-bg);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-surface: var(--surface);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-jakarta);
+  --radius-card: 18px;
+}
+
+html {
+  min-height: 100%;
+  background: var(--surface);
+}
+body {
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font-inter), sans-serif;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+::selection {
+  color: #fff;
+  background: var(--primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
