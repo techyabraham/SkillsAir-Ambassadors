@@ -10,6 +10,7 @@ import { EmptyState } from '@/components/ui/EmptyState'
 import { WithdrawAction } from '@/components/portal/WithdrawAction'
 import { LinkBuilder } from '@/components/portal/LinkBuilder'
 import { loadPromotableProgrammes } from '@/lib/programmes'
+import { SKILLSAIR_MAIN_SITE_URL } from '@/lib/referral-links'
 interface Profile {
   user: { firstName: string }
   ambassador: { code: string }
@@ -48,7 +49,7 @@ export default async function DashboardPage() {
     serverBackendData<Config>('ambassadors/config'),
     loadPromotableProgrammes(),
   ])
-  const mainSiteUrl = process.env.MAIN_SITE_URL ?? 'https://skillsair.com'
+  const mainSiteUrl = SKILLSAIR_MAIN_SITE_URL
   const programmeLinks = profile ? (
     <section aria-label="Generate a programme referral link">
       <LinkBuilder

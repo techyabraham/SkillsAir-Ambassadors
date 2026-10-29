@@ -1,3 +1,5 @@
+export const SKILLSAIR_MAIN_SITE_URL = 'https://skillsair.com'
+
 const REFERRAL_CODE = /^[A-Z0-9]{8}$/
 const SAFE_SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/i
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { serverBackendData } from '@/lib/backend-api'
 import { LinkBuilder } from '@/components/portal/LinkBuilder'
 import { loadPromotableProgrammes } from '@/lib/programmes'
+import { SKILLSAIR_MAIN_SITE_URL } from '@/lib/referral-links'
 export const metadata: Metadata = { title: 'Link builder' }
 interface Profile {
   ambassador: { code: string }
@@ -11,7 +12,7 @@ export default async function LinksPage() {
     serverBackendData<Profile>('ambassadors/me'),
     loadPromotableProgrammes(),
   ])
-  const mainSiteUrl = process.env.MAIN_SITE_URL ?? 'https://skillsair.com'
+  const mainSiteUrl = SKILLSAIR_MAIN_SITE_URL
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div>

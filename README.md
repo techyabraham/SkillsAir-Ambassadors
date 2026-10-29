@@ -12,7 +12,7 @@ Copy-Item .env.example .env.local
 npm run dev
 ```
 
-Set `BACKEND_URL` to the SkillsAir API origin (normally `http://localhost:3001`). `MAIN_SITE_URL` is the public course site and `PORTAL_URL` is the portal’s public origin. Set the backend’s `AMBASSADOR_PORTAL_URL` to the same portal origin so verification and reset emails point here. The portal does not need the Paystack secret or database credentials.
+Set `BACKEND_URL` to the SkillsAir API origin (normally `http://localhost:3001`) and `PORTAL_URL` to the portal’s public origin. Referral destinations are always the canonical `https://skillsair.com` site. Set the backend’s `AMBASSADOR_PORTAL_URL` to the same portal origin so verification and reset emails point here. The portal does not need the Paystack secret or database credentials.
 
 ## Checks
 
@@ -31,7 +31,7 @@ Vitest covers money formatting, the shared password policy, OTP paste handling, 
 
 ## Production container
 
-The multi-stage `Dockerfile` builds Next.js standalone output and serves it on port 3000. Configure `BACKEND_URL`, `MAIN_SITE_URL` and `PORTAL_URL` at runtime. Deploy the portal from this repository as its own service at `ambassador.skillsair.com`.
+The multi-stage `Dockerfile` builds Next.js standalone output and serves it on port 3000. Configure `BACKEND_URL` and `PORTAL_URL` at runtime. Deploy the portal from this repository as its own service at `ambassador.skillsair.com`.
 
 ## Phase 3 boundaries
 
