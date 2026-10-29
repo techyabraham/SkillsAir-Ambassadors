@@ -3,101 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Download } from 'lucide-react'
 import { Card } from '@/components/ui/Card'
+import { promotionAssetGroups, type PromotionAsset } from '@/lib/promotion-assets'
 
 export const metadata: Metadata = { title: 'Promotion assets' }
-
-interface PromotionAsset {
-  title: string
-  format: 'Feed' | 'Story'
-  width: number
-  height: number
-  src: string
-  filename: string
-  alt: string
-}
-
-const promotionGroups: Array<{
-  id: string
-  title: string
-  description: string
-  assets: PromotionAsset[]
-}> = [
-  {
-    id: 'general',
-    title: 'General SkillsAir',
-    description: 'Introduce SkillsAir and the current scholarship offer.',
-    assets: [
-      {
-        title: 'General Feed creative',
-        format: 'Feed',
-        width: 1080,
-        height: 1350,
-        src: '/promotion-assets/skillsair-general-feed-1080x1350.png',
-        filename: 'skillsair-general-feed-1080x1350.png',
-        alt: 'General SkillsAir scholarship promotion, sized for a social media feed.',
-      },
-      {
-        title: 'General Story creative',
-        format: 'Story',
-        width: 1080,
-        height: 1920,
-        src: '/promotion-assets/skillsair-general-story-1080x1920.png',
-        filename: 'skillsair-general-story-1080x1920.png',
-        alt: 'General SkillsAir scholarship promotion, sized for a social media story.',
-      },
-    ],
-  },
-  {
-    id: 'cyber-security',
-    title: 'Cyber Security',
-    description: 'Promote the School of Security and its Cyber Security programme.',
-    assets: [
-      {
-        title: 'Cyber Security Feed creative',
-        format: 'Feed',
-        width: 1080,
-        height: 1350,
-        src: '/promotion-assets/skillsair-cyber-security-feed-1080x1350.png',
-        filename: 'skillsair-cyber-security-feed-1080x1350.png',
-        alt: 'SkillsAir Cyber Security scholarship promotion, sized for a social media feed.',
-      },
-      {
-        title: 'Cyber Security Story creative',
-        format: 'Story',
-        width: 1080,
-        height: 1920,
-        src: '/promotion-assets/skillsair-cyber-security-story-1080x1920.png',
-        filename: 'skillsair-cyber-security-story-1080x1920.png',
-        alt: 'SkillsAir Cyber Security scholarship promotion, sized for a social media story.',
-      },
-    ],
-  },
-  {
-    id: 'data-analysis',
-    title: 'Data Analysis',
-    description: 'Promote the School of Data and its Data Analysis programme.',
-    assets: [
-      {
-        title: 'Data Analysis Feed creative',
-        format: 'Feed',
-        width: 1080,
-        height: 1350,
-        src: '/promotion-assets/skillsair-data-analysis-feed-1080x1350.png',
-        filename: 'skillsair-data-analysis-feed-1080x1350.png',
-        alt: 'SkillsAir Data Analysis scholarship promotion, sized for a social media feed.',
-      },
-      {
-        title: 'Data Analysis Story creative',
-        format: 'Story',
-        width: 1080,
-        height: 1920,
-        src: '/promotion-assets/skillsair-data-analysis-story-1080x1920.png',
-        filename: 'skillsair-data-analysis-story-1080x1920.png',
-        alt: 'SkillsAir Data Analysis scholarship promotion, sized for a social media story.',
-      },
-    ],
-  },
-]
 
 function AssetCard({ asset }: { asset: PromotionAsset }) {
   const placement = asset.format === 'Story' ? 'Instagram Stories and WhatsApp Status' : 'Instagram and Facebook feeds'
@@ -164,7 +72,7 @@ export default function PromotionAssetsPage() {
         These creatives say “Apply by 31 October”. Confirm that the application deadline is still current before sharing.
       </p>
 
-      {promotionGroups.map((group) => (
+      {promotionAssetGroups.map((group) => (
         <section key={group.id} aria-labelledby={`assets-${group.id}`} className="space-y-4">
           <div>
             <h2 id={`assets-${group.id}`} className="font-heading text-xl font-bold text-navy-900">

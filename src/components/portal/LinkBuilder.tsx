@@ -7,8 +7,10 @@ import { Card } from '@/components/ui/Card'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { Input } from '@/components/ui/Input'
 import { ProgrammePicker } from '@/components/portal/ProgrammePicker'
+import { ProgrammeAssetDownloads } from '@/components/portal/ProgrammeAssetDownloads'
 import { useToast } from '@/components/ui/Toast'
 import type { ProgrammeOption } from '@/lib/programmes'
+import { promotionAssetsForProgramme } from '@/lib/promotion-assets'
 import { buildCustomReferralLink, buildProgrammeReferralLink } from '@/lib/referral-links'
 
 export function LinkBuilder({
@@ -29,6 +31,7 @@ export function LinkBuilder({
   const [copiedLink, setCopiedLink] = useState('')
   const { showToast } = useToast()
   const selectedProgramme = programmes.find((programme) => programme.slug === selectedSlug) ?? null
+  const promotionAssets = selectedProgramme ? promotionAssetsForProgramme(selectedProgramme) : null
   const programmeLink = useMemo(
     () =>
       selectedProgramme
@@ -139,6 +142,7 @@ export function LinkBuilder({
                 ? 'Programme referral link copied to clipboard.'
                 : ''}
             </p>
+            {promotionAssets ? <ProgrammeAssetDownloads group={promotionAssets} /> : null}
           </div>
         ) : (
           <p role="status" className="rounded-xl border border-line bg-surface px-4 py-3 text-sm text-muted">
