@@ -1,16 +1,7 @@
 import Link from 'next/link'
-import { BookOpen, CircleDollarSign, Home, Link2, Settings, Users } from 'lucide-react'
 import { Brand } from './Brand'
 import { SignOutButton } from './SignOutButton'
-
-const nav = [
-  { href: '/dashboard', label: 'Home', icon: Home },
-  { href: '/dashboard/referrals', label: 'Referrals', icon: Users },
-  { href: '/dashboard/earnings', label: 'Earnings', icon: CircleDollarSign },
-  { href: '/dashboard/payouts', label: 'Payouts', icon: BookOpen },
-  { href: '/dashboard/links', label: 'Link builder', icon: Link2 },
-  { href: '/dashboard/settings', label: 'Settings', icon: Settings },
-]
+import { dashboardNavigation } from '@/lib/dashboard-navigation'
 
 export function Sidebar({ name, code }: { name: string; code: string }) {
   return (
@@ -20,7 +11,7 @@ export function Sidebar({ name, code }: { name: string; code: string }) {
         Ambassadors
       </p>
       <nav aria-label="Dashboard" className="mt-3 flex flex-1 flex-col gap-1">
-        {nav.map(({ href, label, icon: Icon }) => (
+        {dashboardNavigation.map(({ href, label, icon: Icon }) => (
           <Link
             key={href}
             href={href}

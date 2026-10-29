@@ -8,6 +8,8 @@ import { Sparkline } from '@/components/portal/Sparkline'
 import { StatusChip } from '@/components/ui/StatusChip'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { WithdrawAction } from '@/components/portal/WithdrawAction'
+import { LinkBuilder } from '@/components/portal/LinkBuilder'
+import { loadPromotableProgrammes } from '@/lib/programmes'
 interface Profile {
   user: { firstName: string }
   ambassador: { code: string }
@@ -39,12 +41,14 @@ interface Config {
   payoutsEnabled: boolean
 }
 export default async function DashboardPage() {
-  const [profile, summary, activity, config] = await Promise.all([
+  const [profile, summary, activity, config, catalogue] = await Promise.all([
     serverBackendData<Profile>('ambassadors/me'),
     serverBackendData<Summary>('ambassadors/me/summary'),
     serverBackendData<Earning[]>('ambassadors/me/earnings?limit=5'),
     serverBackendData<Config>('ambassadors/config'),
+    loadPromotableProgrammes(),
   ])
+  const mainSiteUrl = process.env.MAIN_SITE_URL ?? 'https://skillsair.com'
   const payoutReason = !config?.payoutsEnabled
     ? 'Withdrawals are temporarily paused.'
     : !profile?.bank
@@ -61,6 +65,16 @@ export default async function DashboardPage() {
         </h1>
         <p className="mt-2 text-sm text-muted">Here’s how your community is finding SkillsAir.</p>
       </div>
+      {profile ? (
+        <section aria-label="Generate a programme referral link">
+          <LinkBuilder
+            code={profile.ambassador.code}
+            mainSiteUrl={mainSiteUrl}
+            programmes={catalogue.programmes}
+            catalogueUnavailable={catalogue.unavailable}
+          />
+        </section>
+      ) : null}
       {!summary ? (
         <EmptyState
           title="Your dashboard is taking a moment"

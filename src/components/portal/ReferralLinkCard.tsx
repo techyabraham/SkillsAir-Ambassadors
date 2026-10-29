@@ -35,8 +35,8 @@ export function ReferralLinkCard({ link, shareMessage }: { link: string; shareMe
     <Card className="p-5 sm:p-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <p className="text-sm font-semibold text-ink">Your referral link</p>
-          <p className="mt-1 text-sm text-muted">Works on every page and course.</p>
+          <p className="text-sm font-semibold text-ink">General referral link</p>
+          <p className="mt-1 text-sm text-muted">Use this for SkillsAir home or any page you choose.</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button type="button" variant="outline" onClick={copy} aria-live="polite">

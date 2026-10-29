@@ -2,14 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { CircleDollarSign, Home, Users, Wallet } from 'lucide-react'
-
-const nav = [
-  { href: '/dashboard', label: 'Home', icon: Home },
-  { href: '/dashboard/referrals', label: 'Referrals', icon: Users },
-  { href: '/dashboard/earnings', label: 'Earnings', icon: CircleDollarSign },
-  { href: '/dashboard/payouts', label: 'Payouts', icon: Wallet },
-]
+import { bottomNavigation, isDashboardNavigationActive } from '@/lib/dashboard-navigation'
 
 export function BottomDock() {
   const pathname = usePathname()
@@ -18,8 +11,8 @@ export function BottomDock() {
       aria-label="Dashboard"
       className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-4 border-t border-line bg-white/95 px-2 pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-2 backdrop-blur lg:hidden"
     >
-      {nav.map(({ href, label, icon: Icon }) => {
-        const active = pathname === href || (href !== '/dashboard' && pathname.startsWith(href))
+      {bottomNavigation.map(({ href, label, icon: Icon }) => {
+        const active = isDashboardNavigationActive(pathname, href)
         return (
           <Link
             key={href}

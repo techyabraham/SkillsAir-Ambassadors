@@ -22,7 +22,7 @@ export function LinkBuilder({
   programmes: ProgrammeOption[]
   catalogueUnavailable: boolean
 }) {
-  const [selectedSlug, setSelectedSlug] = useState('')
+  const [selectedSlug, setSelectedSlug] = useState(() => programmes[0]?.slug ?? '')
   const [customTarget, setCustomTarget] = useState(() => new URL('/', mainSiteUrl).toString())
   const [customResult, setCustomResult] = useState('')
   const [customError, setCustomError] = useState('')
