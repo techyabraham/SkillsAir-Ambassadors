@@ -1,4 +1,4 @@
-import { BookOpen, CircleDollarSign, Home, Link2, Settings, Users } from 'lucide-react'
+import { BookOpen, CircleDollarSign, Home, Image as ImageIcon, Link2, Settings, Users } from 'lucide-react'
 
 export const dashboardNavigation = [
   { href: '/dashboard', label: 'Home', icon: Home },
@@ -6,6 +6,7 @@ export const dashboardNavigation = [
   { href: '/dashboard/earnings', label: 'Earnings', icon: CircleDollarSign },
   { href: '/dashboard/payouts', label: 'Payouts', icon: BookOpen },
   { href: '/dashboard/links', label: 'Link builder', icon: Link2 },
+  { href: '/dashboard/assets', label: 'Promotion assets', icon: ImageIcon },
   { href: '/dashboard/settings', label: 'Settings', icon: Settings },
 ] as const
 

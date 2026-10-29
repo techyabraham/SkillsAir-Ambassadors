@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, MousePointerClick, Users, UserRoundCheck, Repeat2 } from 'lucide-react'
+import { ArrowRight, Image as ImageIcon, MousePointerClick, Users, UserRoundCheck, Repeat2 } from 'lucide-react'
 import { serverBackendData } from '@/lib/backend-api'
 import { Card, StatCard } from '@/components/ui/Card'
 import { MoneyText } from '@/components/ui/MoneyText'
@@ -141,6 +141,26 @@ export default async function DashboardPage() {
             />
           </div>
           {programmeLinks}
+          <Card className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <span className="rounded-xl bg-primary-100 p-2 text-primary">
+                <ImageIcon aria-hidden="true" className="size-5" />
+              </span>
+              <div>
+                <p className="font-semibold text-ink">Ready-to-share promotion assets</p>
+                <p className="mt-1 text-sm text-muted">
+                  Download Feed and Story creatives for General, Cyber Security and Data Analysis.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/dashboard/assets"
+              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline"
+            >
+              Browse assets
+              <ArrowRight className="size-4" />
+            </Link>
+          </Card>
           <div className="grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
             <Card className="p-5 sm:p-6">
               <Sparkline series={summary.last30Days.series} />
