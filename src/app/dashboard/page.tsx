@@ -49,6 +49,16 @@ export default async function DashboardPage() {
     loadPromotableProgrammes(),
   ])
   const mainSiteUrl = process.env.MAIN_SITE_URL ?? 'https://skillsair.com'
+  const programmeLinks = profile ? (
+    <section aria-label="Generate a programme referral link">
+      <LinkBuilder
+        code={profile.ambassador.code}
+        mainSiteUrl={mainSiteUrl}
+        programmes={catalogue.programmes}
+        catalogueUnavailable={catalogue.unavailable}
+      />
+    </section>
+  ) : null
   const payoutReason = !config?.payoutsEnabled
     ? 'Withdrawals are temporarily paused.'
     : !profile?.bank
@@ -65,21 +75,14 @@ export default async function DashboardPage() {
         </h1>
         <p className="mt-2 text-sm text-muted">Here’s how your community is finding SkillsAir.</p>
       </div>
-      {profile ? (
-        <section aria-label="Generate a programme referral link">
-          <LinkBuilder
-            code={profile.ambassador.code}
-            mainSiteUrl={mainSiteUrl}
-            programmes={catalogue.programmes}
-            catalogueUnavailable={catalogue.unavailable}
-          />
-        </section>
-      ) : null}
       {!summary ? (
-        <EmptyState
-          title="Your dashboard is taking a moment"
-          description="We couldn’t load your latest figures. Refresh the page or try again shortly."
-        />
+        <>
+          <EmptyState
+            title="Your dashboard is taking a moment"
+            description="We couldn’t load your latest figures. Refresh the page or try again shortly."
+          />
+          {programmeLinks}
+        </>
       ) : (
         <>
           <Card className="overflow-hidden bg-navy-900 p-5 text-white sm:p-7">
@@ -136,6 +139,7 @@ export default async function DashboardPage() {
               icon={<Repeat2 className="size-5" />}
             />
           </div>
+          {programmeLinks}
           <div className="grid gap-5 xl:grid-cols-[1.2fr_.8fr]">
             <Card className="p-5 sm:p-6">
               <Sparkline series={summary.last30Days.series} />
