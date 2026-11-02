@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Download } from 'lucide-react'
+import { AssetPreview } from '@/components/portal/AssetPreview'
 import type { PromotionAssetGroup } from '@/lib/promotion-assets'
 
 export function ProgrammeAssetDownloads({ group }: { group: PromotionAssetGroup }) {
@@ -25,7 +26,11 @@ export function ProgrammeAssetDownloads({ group }: { group: PromotionAssetGroup 
       <div className="grid gap-3 sm:grid-cols-2">
         {group.assets.map((asset) => (
           <div key={asset.filename} className="flex min-w-0 items-center gap-3 rounded-xl border border-line bg-white p-3">
-            <div className="flex h-24 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-navy-900 p-1">
+            <AssetPreview
+              asset={asset}
+              compact
+              className="flex h-24 w-20 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-navy-900 p-1"
+            >
               <Image
                 src={asset.src}
                 alt={asset.alt}
@@ -33,7 +38,7 @@ export function ProgrammeAssetDownloads({ group }: { group: PromotionAssetGroup 
                 height={asset.height}
                 className="max-h-full w-auto max-w-full object-contain"
               />
-            </div>
+            </AssetPreview>
             <div className="min-w-0">
               <p className="font-semibold text-ink">{asset.format} image</p>
               <p className="mt-1 text-xs text-muted">{asset.width} × {asset.height} px</p>

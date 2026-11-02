@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Download } from 'lucide-react'
+import { AssetPreview } from '@/components/portal/AssetPreview'
 import { Card } from '@/components/ui/Card'
-import { promotionAssetGroups, type PromotionAsset } from '@/lib/promotion-assets'
+import { PROMOTION_ASSETS_DEADLINE, promotionAssetGroups, type PromotionAsset } from '@/lib/promotion-assets'
 
 export const metadata: Metadata = { title: 'Promotion assets' }
 
@@ -12,7 +13,7 @@ function AssetCard({ asset }: { asset: PromotionAsset }) {
 
   return (
     <Card className="overflow-hidden">
-      <div className="flex h-72 items-center justify-center bg-navy-900 p-2">
+      <AssetPreview asset={asset} className="flex h-72 w-full items-center justify-center bg-navy-900 p-2">
         <Image
           src={asset.src}
           alt={asset.alt}
@@ -21,7 +22,7 @@ function AssetCard({ asset }: { asset: PromotionAsset }) {
           sizes="(max-width: 640px) 88vw, (max-width: 1280px) 42vw, 28vw"
           className="h-full w-auto max-w-full object-contain"
         />
-      </div>
+      </AssetPreview>
       <div className="space-y-3 p-4">
         <div className="flex items-start justify-between gap-3">
           <div>
@@ -56,7 +57,7 @@ export default function PromotionAssetsPage() {
             Promotion assets
           </h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-            Download ready-made Feed and Story creatives for general promotion, Cyber Security and Data Analysis.
+            Preview and download ready-made Feed and Story creatives for general promotion and every programme. Select an image to see it full size.
           </p>
         </div>
         <Link
@@ -69,7 +70,7 @@ export default function PromotionAssetsPage() {
       </div>
 
       <p role="note" className="rounded-xl border border-pending-text/30 bg-pending-bg px-4 py-3 text-sm leading-6 text-pending-chip-text">
-        These creatives say “Apply by 31 October”. Confirm that the application deadline is still current before sharing.
+        These creatives say “Apply by {PROMOTION_ASSETS_DEADLINE}”. Stop sharing them after that date unless new creatives replace them here.
       </p>
 
       {promotionAssetGroups.map((group) => (
