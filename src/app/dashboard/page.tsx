@@ -11,6 +11,7 @@ import { WithdrawAction } from '@/components/portal/WithdrawAction'
 import { LinkBuilder } from '@/components/portal/LinkBuilder'
 import { loadPromotableProgrammes } from '@/lib/programmes'
 import { SKILLSAIR_MAIN_SITE_URL } from '@/lib/referral-links'
+import { REFERRAL_SEGMENTS, type ReferralSegment } from '@/lib/referral-segments'
 interface Profile {
   user: { firstName: string }
   ambassador: { code: string }
@@ -25,7 +26,8 @@ interface Summary {
     earningsKobo: number
     series: Array<{ date: string; kobo: number }>
   }
-  totals: { prospects: number; customers: number; renewals: number }
+  // applicants: applied, no account yet; prospects: account, nothing paid; customers: paid.
+  totals: { applicants?: number; prospects: number; customers: number; renewals: number }
 }
 interface Earning {
   id: number
@@ -207,21 +209,34 @@ export default async function DashboardPage() {
               )}
             </Card>
           </div>
-          <Card className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <p className="font-semibold text-ink">Potential customers</p>
-              <p className="mt-1 text-sm text-muted">
-                {summary.totals.prospects.toLocaleString('en-NG')} people have joined through your
-                link.
-              </p>
+          <Card className="p-5">
+            <p className="font-semibold text-ink">People you referred</p>
+            <p className="mt-1 text-sm text-muted">
+              From applying, to creating an account, to paying. Nudge the ones who have not paid yet.
+            </p>
+            <div className="mt-4 grid grid-cols-3 gap-2">
+              {(
+                [
+                  ['applicants', summary.totals.applicants ?? 0],
+                  ['prospects', summary.totals.prospects],
+                  ['customers', summary.totals.customers],
+                ] as Array<[ReferralSegment, number]>
+              ).map(([segment, count]) => (
+                <Link
+                  key={segment}
+                  href={`/dashboard/referrals?segment=${segment}`}
+                  className="flex min-h-11 flex-col rounded-xl border border-line p-3 hover:border-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                  <span className="font-heading text-xl font-bold text-navy-900">
+                    {count.toLocaleString('en-NG')}
+                  </span>
+                  <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                    {REFERRAL_SEGMENTS[segment].tab}
+                    <ArrowRight className="size-4" aria-hidden />
+                  </span>
+                </Link>
+              ))}
             </div>
-            <Link
-              href="/dashboard/referrals?segment=prospects"
-              className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-primary underline"
-            >
-              View prospects
-              <ArrowRight className="size-4" />
-            </Link>
           </Card>
         </>
       )}
